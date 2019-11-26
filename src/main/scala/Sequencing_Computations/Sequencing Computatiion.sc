@@ -22,6 +22,10 @@ sealed trait Maybe[A] {
       case Full(value) => fn(value)
       case Empty() => Empty[B]()
     }
+
+  //5.4.2 Mapping Maybe
+  def map[B](fn: A => B): Maybe[B] =
+    this.flatMap[B](v => Full[B](fn(v)))
 }
 final case class Full[A](value: A) extends Maybe[A]
 final case class Empty[A]() extends Maybe[A]
@@ -34,4 +38,49 @@ final case class Empty[A]() extends Maybe[A]
 //>An optional value
 //>a sum of values
 //>a list of values
+
+//EXERCISES
+//5.5.4.1 Mapping Lists
+val list: LinkedList[Int] = Pair(1, Pair(2, Pair(3, End())))
+val newList =
+  list
+    .map[Int](v => 2*v)
+    .map[Int](v => v+1)
+    .map[Double](v => v.toFloat/3)
+
+
+//5.5.4.3 Sequencing Computations
+val list2 = List(1, 2, 3)
+val list2Neg = list2.flatMap[Int](v => List(v, -v))
+
+val list3: List[Maybe[Int]] = List(Full(3), Full(2), Full(1))
+val listEven = list3.map[Maybe[Int]](v => v.flatMap[Int]{ x =>
+  if (x%2 == 0) Full(x) else Empty()
+})
+
+//5.5.4.4 Sum
+sealed trait Sum[A, B] {
+  def fold[C](fail: A => C, success: B => C): C =
+    this match {
+      case Fail(v) => fail(v)
+      case Success(v) => success(v)
+    }
+
+  def map[C](fn: B => C): Sum[A, C] =
+    this match {
+      case Fail(value) => Fail(value)
+      case Success(value) => Success(fn(value))
+    }
+
+  def flatMap[C](fn: B => Sum[A, C]): Sum[A, C] =
+    this match {
+      case Fail(value) => Fail(value)
+      case Success(value) => fn(value)
+    }
+}
+
+final case class Fail[A, B](value: A) extends Sum[A, B]
+final case class Success[A, B](value: B) extends Sum[A, B]
+
+
 
