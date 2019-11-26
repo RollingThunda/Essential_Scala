@@ -30,3 +30,8 @@ final case class Empty[A]() extends Maybe[A]
 //A type like F[A] with a map method is called a FUNCTOR. If a functor also has a flatMap method it's called a MONAD.
 //Although the immediate use of map and flatmap are in collection classes like Lists, the bigger picture is
 //sequencing computations.
+//The general idea is a monad represents a value some context. The context depends on the monad we're using. eg:
+//>An optional value
+//>a sum of values
+//>a list of values
+
