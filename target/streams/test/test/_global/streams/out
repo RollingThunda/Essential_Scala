@@ -1,0 +1,10 @@
+[debug] Running TaskDef(CubeCalculatorTest, org.scalatest.tools.Framework$$anon$1@623cdcdb, false, [SuiteSelector])
+[debug] Running TaskDef(CalculatorTest, org.scalatest.tools.Framework$$anon$1@623cdcdb, false, [SuiteSelector])
+[info] Run completed in 100 milliseconds.
+[info] Total number of tests run: 2
+[info] Suites: completed 2, aborted 0
+[info] Tests: succeeded 2, failed 0, canceled 0, ignored 0, pending 0
+[info] All tests passed.
+[debug] Passed tests:
+[debug] 	CubeCalculatorTest
+[debug] 	CalculatorTest
