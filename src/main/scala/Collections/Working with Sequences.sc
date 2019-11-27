@@ -72,3 +72,17 @@ val vintageMc = mcTiernan.films.sortWith(_.yearOfRelease < _.yearOfRelease).head
 val highScores = directors.flatMap(_.films).sortWith((a, b) => a.imdbRating > b.imdbRating)
 val avgScores = directors.map(d => d.films.foldLeft(0.0)((s, f) => s + f.imdbRating)/d.films.length)
 val earliest = directors.flatMap(d => d.films).sortWith(_.yearOfRelease < _.yearOfRelease).headOption
+
+val nolanFilms2 = for{
+  film <- nolan.films
+} yield film.name
+
+val cinephile2 = for{
+  director <- directors
+  film <- director.films
+} yield film.name
+
+val highScores2 = (for {
+  director <- directors
+  film <- director.films
+} yield film).sortWith(_.imdbRating > _.imdbRating)
