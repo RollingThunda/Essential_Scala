@@ -1,4 +1,4 @@
-//Scala has special syntax for working with collections (any class that implements Map and Flatmap)
+//Scala has special syntax for working with collections (any class that implements map and flatMap)
 //that makes complicated operations with many nested transformations simpler to write.
 
 Seq(1, 2, 3).map(_ * 2)
