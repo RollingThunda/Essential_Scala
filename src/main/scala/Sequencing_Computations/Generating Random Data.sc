@@ -62,17 +62,36 @@ final case class Distribution[A](events: List[(A, Double)]) {
     Distribution( distinct map {a => a -> prob(a)})
   }
 
+}
 
-  def uniform[A] (atoms: List[A]): Distribution[A] = {
+object Distribution {
+  def uniform[A](atoms: List[A]): Distribution[A] = {
     val p = 1.0/atoms.length
     Distribution(atoms.map( x=> x -> p))
   }
+
+  def discrete[A] (events: List[(A, Double)]): Distribution[A] =
+    Distribution(events).compact.normalise
 }
 
-
-
+//EXAMPLES
 sealed trait Coin
 case object Heads extends Coin
 case object Tails extends Coin
 
-val fairCoin: Distribution[Coin] = Distribution.uniform
+val fairCoin: Distribution[Coin] = Distribution.uniform(List(Heads, Tails))
+
+val threeFlips =
+  for {
+    c1 <- fairCoin
+    c2 <- fairCoin
+    c3 <- fairCoin
+  } yield (c1, c2, c3)
+
+//from this we can read the probability of three heads being 0.125
+
+//more complicated model:
+sealed trait Oven
+case object Cooked extends Oven
+case object Raw extends Oven
+
