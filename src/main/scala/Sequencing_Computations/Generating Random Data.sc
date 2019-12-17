@@ -91,7 +91,24 @@ val threeFlips =
 //from this we can read the probability of three heads being 0.125
 
 //more complicated model:
-sealed trait Oven
-case object Cooked extends Oven
-case object Raw extends Oven
+sealed trait Food
+case object Cooked extends Food
+case object Raw extends Food
 
+val food: Distribution[Food] =
+  Distribution.discrete(List(Cooked -> 0.3, Raw -> 0.7))
+
+sealed trait Cat
+case object Awake extends Cat
+case object Asleep extends Cat
+
+def cat(food: Food): Distribution[Cat] =
+  food match {
+    case Cooked => Distribution.discrete(List(Awake -> 0.8, Asleep -> 0.2))
+    case Raw => Distribution.discrete(List(Awake -> 0.4, Asleep -> 0.6))
+  }
+
+val foodModel: Distribution[(Food, Cat)] = for{
+  f <- food
+  c <- cat(f)
+} yield (f, c)
