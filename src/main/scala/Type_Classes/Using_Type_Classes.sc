@@ -14,7 +14,7 @@ implicit class HtmlOps[T](data: T) {
     writer.toHtml(data)
 }
 
-def pageTemplateBoo[A](body: A)(implicit writer: HtmlWriter[A]): String = {
+def pageTemplateFoo[A](body: A)(implicit writer: HtmlWriter[A]): String = {
   val renderedBody = body.toHtml
   s"<html><head>...</head><body>${renderedBody}</body></html>"
 }
