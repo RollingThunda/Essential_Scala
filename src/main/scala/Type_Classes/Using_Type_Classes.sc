@@ -20,7 +20,7 @@ def pageTemplateFoo[A](body: A)(implicit writer: HtmlWriter[A]): String = {
 }
 
 
-
+//test 3
 
 //We don't explicitly use the implicit writer in our code, but we need it in the scope
 //so the compiler can insert it for the toHtml enrichment
